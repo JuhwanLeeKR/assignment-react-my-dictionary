@@ -1,45 +1,32 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div className='App'>
+      <h1>나만의 단어장</h1>
+      <div>
+        <label htmlFor='wordInput'>단어</label>
+        <input id='wordInput' type='text' placeholder='단어' />
+      </div>
+      <div>
+        <label htmlFor='wordExplain'>설명</label>
+        <input id='wordExplain' type='text' placeholder='설명' />
+      </div>
+      <div>
+        <label htmlFor='wordExample'>예시</label>
+        <input id='wordExample' type='text' placeholder='예시' />
+      </div>
+      <button>추가하기</button>
+      <div>
+        <h2>보여주는 부분</h2>
+        <ul>
+          <li>단어</li>
+          <li>설명</li>
+          <li>예시</li>
+        </ul>
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
