@@ -1,17 +1,43 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+import { addWordFB } from '../store/modules/dictionary';
 
 const InputWord = (props) => {
+  const wordRef = useRef();
+  const descRef = useRef();
+  const exampleRef = useRef();
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const wordData = {
+      word: wordRef.current.value,
+      desc: descRef.current.value,
+      example: exampleRef.current.value,
+      isCompleted: false,
+      createAt: Date.now(),
+    };
+
+    dispatch(addWordFB(wordData));
+
+    navigate('/', { replace: true });
+  };
+
   return (
-    <InputBox className='nes-container with-title'>
+    <InputBox onSubmit={submitHandler} className='nes-container with-title'>
       <p className='title'>
         단어 입력하기 <i className='nes-icon is-small like'></i>
       </p>
       <div className='nes-field is-inline'>
         <label htmlFor='wordInput'>단어</label>
         <input
+          ref={wordRef}
           maxLength='20'
           className='nes-input'
           id='wordInput'
@@ -23,6 +49,7 @@ const InputWord = (props) => {
       <div className='nes-field is-inline'>
         <label htmlFor='wordExplain'>설명</label>
         <input
+          ref={descRef}
           maxLength='50'
           className='nes-input'
           id='wordExplain'
@@ -34,6 +61,7 @@ const InputWord = (props) => {
       <div className='nes-field is-inline'>
         <label htmlFor='wordExample'>예시</label>
         <input
+          ref={exampleRef}
           maxLength='50'
           className='nes-input'
           id='wordExample'
