@@ -1,25 +1,12 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import Word from '../UI/Word';
+
 const Home = () => {
   return (
     <HomeContainer className='nes-container'>
-      <div className='nes-container is-rounded'>
-        <ul>
-          <li>단어</li>
-          <li>설명</li>
-          <li>예시</li>
-        </ul>
-        <div>
-          <button
-            style={{ marginRight: '10px' }}
-            className='nes-btn is-success'
-          >
-            완료하기
-          </button>
-          <button className='nes-btn is-error'>삭제하기</button>
-        </div>
-      </div>
+      <Word />
       <Link to='/add' className='nes-btn is-primary'>
         추가하기
       </Link>
@@ -30,6 +17,7 @@ const Home = () => {
 const HomeContainer = styled.div`
   position: relative;
   padding-bottom: 70px;
+  min-width: 200px;
 
   & > .nes-btn {
     position: absolute;

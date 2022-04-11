@@ -16,6 +16,7 @@ const InputWord = (props) => {
           className='nes-input'
           id='wordInput'
           type='text'
+          required
           placeholder='단어를 입력해주세요'
         />
       </div>
@@ -26,6 +27,7 @@ const InputWord = (props) => {
           className='nes-input'
           id='wordExplain'
           type='text'
+          required
           placeholder='설명을 입력해주세요'
         />
       </div>
@@ -36,6 +38,7 @@ const InputWord = (props) => {
           className='nes-input'
           id='wordExample'
           type='text'
+          required
           placeholder='예시를 적어주세요'
         />
       </div>
@@ -56,7 +59,7 @@ const InputWord = (props) => {
   );
 };
 
-const InputBox = styled.section`
+const InputBox = styled.form`
   background: #fff;
   width: 50%;
 `;
