@@ -1,9 +1,11 @@
 import './App.css';
+import Header from './components/UI/header';
+import 'nes.css/css/nes.min.css';
 
 function App() {
   return (
-    <div className='App'>
-      <h1>나만의 단어장</h1>
+    <>
+      <Header />
       <div>
         <label htmlFor='wordInput'>단어</label>
         <input id='wordInput' type='text' placeholder='단어' />
@@ -16,7 +18,7 @@ function App() {
         <label htmlFor='wordExample'>예시</label>
         <input id='wordExample' type='text' placeholder='예시' />
       </div>
-      <button>추가하기</button>
+      <button className='nes-btn'>추가하기</button>
       <div>
         <h2>보여주는 부분</h2>
         <ul>
@@ -25,7 +27,7 @@ function App() {
           <li>예시</li>
         </ul>
       </div>
-    </div>
+    </>
   );
 }
 

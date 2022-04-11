@@ -1,4 +1,15 @@
-.App {
+#root {
   text-align: center;
   background-color: #ccc;
+}
+
+@font-face {
+  font-family: DungGeunMo;
+  src: url('./components/fonts/DungGeunMo.eot') format('eot'),
+    url('./components/fonts/DungGeunMo.woff') format('woff'),
+    url('./components/fonts/DungGeunMo.woff2') format('woff2');
+}
+
+* {
+  font-family: DungGeunMo;
 }
