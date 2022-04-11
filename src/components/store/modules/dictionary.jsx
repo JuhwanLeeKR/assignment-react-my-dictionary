@@ -73,9 +73,8 @@ export const addWordFB = (wordData) => {
 
     const docRef = await addDoc(collection(db, 'dictionary'), wordData);
 
-    const newWord = { id: docRef.id, ...wordData };
-
-    dispatch(createWord(newWord));
+    // return 값 오류 확인
+    return { id: docRef.id, ...wordData };
   };
 };
 
