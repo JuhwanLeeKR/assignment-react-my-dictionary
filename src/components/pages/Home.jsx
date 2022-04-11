@@ -6,18 +6,23 @@ import { loadWordListFB } from '../store/modules/dictionary';
 
 import Word from '../UI/Word';
 
-const Home = () => {
-  const wordList = useSelector(({ dictionary }) => dictionary.wordList);
+const Home = (props) => {
+  const wordList = useSelector(({ dictionary }) => {
+    console.log(dictionary.wordList);
+    return dictionary.wordList;
+  });
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadWordListFB());
-  }, [dispatch]);
+    console.log('호출1');
+  }, []);
 
   const loadedWord = wordList.map((word) => {
+    console.log('호출3');
     return <Word key={word.id} wordData={word} id={word.id} />;
   });
-
+  console.log('호출2');
   return (
     <HomeContainer className='nes-container'>
       {loadedWord}

@@ -23,7 +23,10 @@ const Word = ({ wordData }) => {
 
   const deleteWordHandler = (e) => {
     e.stopPropagation();
-    if (!window.confirm('삭제하시겠습니까?')) {
+    if (editMode) {
+      window.alert('수정을 완료해주세요!');
+      return;
+    } else if (!window.confirm('삭제하시겠습니까?')) {
       return;
     }
 
