@@ -22,8 +22,8 @@ const Word = ({ wordData }) => {
   const dispatch = useDispatch();
 
   const deleteWordHandler = (e) => {
+    e.stopPropagation();
     if (!window.confirm('삭제하시겠습니까?')) {
-      e.stopPropagation();
       return;
     }
 
@@ -40,6 +40,9 @@ const Word = ({ wordData }) => {
     dispatch(completeWordFB(wordData.id, !wordData.isCompleted));
   };
 
+  const isCompletedWord = wordData.isCompleted;
+
+  // console.log(wordData.isCompleted);
   return (
     <>
       <WordContent
@@ -53,16 +56,19 @@ const Word = ({ wordData }) => {
               <input
                 value={word}
                 onChange={(e) => setWord(e.target.value)}
+                maxLength='20'
                 required
               ></input>
               <input
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
+                maxLength='50'
                 required
               ></input>
               <input
                 value={example}
                 onChange={(e) => setExample(e.target.value)}
+                maxLength='50'
                 required
               ></input>
             </>
@@ -89,7 +95,7 @@ const Word = ({ wordData }) => {
               className='nes-btn is-success'
               onClick={isDoneWordHandler}
             >
-              완료하기
+              {isCompletedWord ? '되돌리기' : '완료하기'}
             </button>
           )}
 
@@ -105,6 +111,7 @@ const Word = ({ wordData }) => {
 const WordContent = styled.div`
   margin-bottom: 12px !important;
   background-color: ${({ isCompleted }) => (isCompleted ? '#aaa' : null)};
+  color: ${({ isCompleted }) => (isCompleted ? '#777' : null)};
 
   :hover {
     background: #ddd;
@@ -115,6 +122,10 @@ const WordContent = styled.div`
   & > ul {
     display: flex;
     flex-direction: column;
+  }
+  & .is-success,
+  & .is-success:hover {
+    color: ${({ isCompleted }) => (isCompleted ? '#009246' : null)};
   }
 `;
 

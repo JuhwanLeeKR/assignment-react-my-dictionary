@@ -75,7 +75,8 @@ const InputWord = (props) => {
           추가하기
         </button>
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             navigate(-1);
           }}
           className='nes-btn is-warning'
