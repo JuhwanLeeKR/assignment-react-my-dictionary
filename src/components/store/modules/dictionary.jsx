@@ -38,8 +38,8 @@ export const editWord = (id, wordData) => {
   return { type: EDIT, id, wordData };
 };
 
-export const completeWord = (id, isDone) => {
-  return { type: COMPLETE, id, isDone };
+export const completeWord = (id, isCompleted) => {
+  return { type: COMPLETE, id, isCompleted };
 };
 
 export const deleteWord = (id) => {
@@ -54,7 +54,7 @@ export const isLoadedWordList = (isLoaded) => {
 export const loadWordListFB = () => {
   return async function (dispatch) {
     const _wordList = await getDocs(
-      query(collection(db, 'vocabulary'), orderBy('createAt', 'desc'))
+      query(collection(db, 'dictionary'), orderBy('createAt', 'desc'))
     );
 
     const wordList = [];
@@ -71,7 +71,7 @@ export const addWordFB = (wordData) => {
   return async function (dispatch) {
     dispatch(isLoadedWordList(false));
 
-    const docRef = await addDoc(collection(db, 'vocabulary'), wordData);
+    const docRef = await addDoc(collection(db, 'dictionary'), wordData);
 
     const newWord = { id: docRef.id, ...wordData };
 
@@ -83,21 +83,21 @@ export const editWordFB = (id, wordData) => {
   return async function (dispatch) {
     dispatch(isLoadedWordList(false));
 
-    const docRef = doc(db, 'vocabulary', id);
+    const docRef = doc(db, 'dictionary', id);
     await updateDoc(docRef, wordData);
 
     dispatch(editWord(id, wordData));
   };
 };
 
-export const completeWordFB = (id, isDone) => {
+export const completeWordFB = (id, isCompleted) => {
   return async function (dispatch) {
     dispatch(isLoadedWordList(false));
 
-    const docRef = doc(db, 'vocabulary', id);
-    await updateDoc(docRef, { isDone });
+    const docRef = doc(db, 'dictionary', id);
+    await updateDoc(docRef, { isCompleted });
 
-    dispatch(completeWord(docRef.id, isDone));
+    dispatch(completeWord(docRef.id, isCompleted));
   };
 };
 
@@ -105,7 +105,7 @@ export const deleteWordFB = (id) => {
   return async function (dispatch) {
     dispatch(isLoadedWordList(false));
 
-    const docRef = doc(db, 'vocabulary', id);
+    const docRef = doc(db, 'dictionary', id);
     await deleteDoc(docRef);
 
     dispatch(deleteWord(docRef.id));
@@ -151,7 +151,7 @@ export default function reducer(state = initialState, action = {}) {
     case COMPLETE: {
       const completedWordList = state.wordList.map((word) => {
         if (word.id === action.id) {
-          return { ...word, isDone: action.isDone };
+          return { ...word, isCompleted: action.isCompleted };
         }
         return word;
       });

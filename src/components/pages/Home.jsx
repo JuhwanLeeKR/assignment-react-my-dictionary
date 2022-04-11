@@ -1,12 +1,26 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { loadWordListFB } from '../store/modules/dictionary';
 
 import Word from '../UI/Word';
 
 const Home = () => {
+  const wordList = useSelector(({ dictionary }) => dictionary.wordList);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadWordListFB());
+  }, [dispatch]);
+
+  const loadedWord = wordList.map((word) => {
+    return <Word key={word.id} wordData={word} id={word.id} />;
+  });
+
   return (
     <HomeContainer className='nes-container'>
-      <Word />
+      {loadedWord}
       <Link to='/add' className='nes-btn is-primary'>
         추가하기
       </Link>

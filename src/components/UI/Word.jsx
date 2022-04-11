@@ -1,26 +1,121 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
-const Word = (props) => {
+import {
+  deleteWordFB,
+  editWordFB,
+  completeWordFB,
+} from '../store/modules/dictionary';
+
+const Word = ({ wordData }) => {
+  const [editMode, setEditMode] = useState(false);
+  const [word, setWord] = useState(wordData.word);
+  const [desc, setDesc] = useState(wordData.desc);
+  const [example, setExample] = useState(wordData.example);
+
+  const editModeHandler = () => {
+    setEditMode((prev) => !prev);
+  };
+
+  const dispatch = useDispatch();
+
+  const deleteWordHandler = (e) => {
+    if (!window.confirm('삭제하시겠습니까?')) {
+      e.stopPropagation();
+      return;
+    }
+
+    dispatch(deleteWordFB(wordData.id));
+  };
+
+  const updateWordHandler = () => {
+    dispatch(editWordFB(wordData.id, { word, desc, example }));
+    setEditMode(false);
+  };
+
+  const isDoneWordHandler = (e) => {
+    e.stopPropagation();
+    dispatch(completeWordFB(wordData.id, !wordData.isCompleted));
+  };
+
   return (
     <>
-      <div className='nes-container is-rounded'>
+      <WordContent
+        onClick={editMode ? null : editModeHandler}
+        className='nes-container is-rounded'
+        isCompleted={wordData.isCompleted}
+      >
         <ul>
-          <li>단어</li>
-          <li>설명</li>
-          <li style={{ color: 'lightblue' }}>예시</li>
+          {editMode ? (
+            <>
+              <input
+                value={word}
+                onChange={(e) => setWord(e.target.value)}
+                required
+              ></input>
+              <input
+                value={desc}
+                onChange={(e) => setDesc(e.target.value)}
+                required
+              ></input>
+              <input
+                value={example}
+                onChange={(e) => setExample(e.target.value)}
+                required
+              ></input>
+            </>
+          ) : (
+            <>
+              <li>{wordData.word}</li>
+              <li>{wordData.desc}</li>
+              <li style={{ color: 'lightblue' }}>{wordData.example}</li>
+            </>
+          )}
         </ul>
-        <div>
-          <button
-            style={{ marginRight: '10px' }}
-            className='nes-btn is-success'
-          >
-            완료하기
+        <div style={{ textAlign: 'right' }}>
+          {editMode ? (
+            <button
+              onClick={updateWordHandler}
+              className='nes-btn is-primary'
+              style={{ marginRight: '10px' }}
+            >
+              수정완료
+            </button>
+          ) : (
+            <button
+              style={{ marginRight: '10px' }}
+              className='nes-btn is-success'
+              onClick={isDoneWordHandler}
+            >
+              완료하기
+            </button>
+          )}
+
+          <button onClick={deleteWordHandler} className='nes-btn is-error'>
+            삭제하기
           </button>
-          <button className='nes-btn is-error'>삭제하기</button>
         </div>
-      </div>
+      </WordContent>
     </>
   );
 };
+
+const WordContent = styled.div`
+  margin-bottom: 12px !important;
+  background-color: ${({ isCompleted }) => (isCompleted ? '#aaa' : null)};
+
+  :hover {
+    background: #ddd;
+    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC)
+        14 0,
+      pointer;
+  }
+  & > ul {
+    display: flex;
+    flex-direction: column;
+  }
+`;
 
 export default Word;
