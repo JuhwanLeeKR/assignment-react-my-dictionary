@@ -1,31 +1,22 @@
 import './App.css';
-import Header from './components/UI/Header';
 import 'nes.css/css/nes.min.css';
+import { Routes, Route, Link } from 'react-router-dom';
+
+import Header from './components/UI/Header';
 import InputWord from './components/UI/InputWord';
+import Home from './components/pages/Home';
+import NotFound from './components/pages/NotFound';
 
 function App() {
+  // const history = useHistory();
   return (
     <>
       <Header />
-      <InputWord />
-      <div className='nes-container'>
-        <div className='nes-container is-rounded'>
-          <ul>
-            <li>단어</li>
-            <li>설명</li>
-            <li>예시</li>
-          </ul>
-          <div>
-            <button
-              style={{ marginRight: '10px' }}
-              className='nes-btn is-success'
-            >
-              완료하기
-            </button>
-            <button className='nes-btn is-error'>삭제하기</button>
-          </div>
-        </div>
-      </div>
+      <Routes>
+        <Route exact path='/' element={<Home />} />
+        <Route exact path='add' element={<InputWord />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
     </>
   );
 }

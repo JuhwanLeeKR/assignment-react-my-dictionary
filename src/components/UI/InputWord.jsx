@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const InputWord = (props) => {
+  const navigate = useNavigate();
   return (
     <InputBox className='nes-container with-title'>
       <p className='title'>
@@ -41,7 +43,14 @@ const InputWord = (props) => {
         <button style={{ marginRight: '10px' }} className='nes-btn is-primary'>
           추가하기
         </button>
-        <button className='nes-btn is-warning'>뒤로가기</button>
+        <button
+          onClick={() => {
+            navigate(-1);
+          }}
+          className='nes-btn is-warning'
+        >
+          뒤로가기
+        </button>
       </div>
     </InputBox>
   );
