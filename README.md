@@ -1,5 +1,6 @@
 # assignment-react-my-dictionary
 
+![ezgif-2-725ffb75a0](https://user-images.githubusercontent.com/87694150/162883406-dfea1015-d39c-4fff-bfa4-4dd44f18d6f2.gif)
 
 ## 요구사항
 #### ✅ 게시글 목록 페이지
