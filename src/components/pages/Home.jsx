@@ -5,30 +5,29 @@ import styled from 'styled-components';
 import { loadWordListFB } from '../store/modules/dictionary';
 
 import Word from '../UI/Word';
+import Spinner from './Spinner';
+import Btn from '../UI/Btn';
 
 const Home = (props) => {
   const wordList = useSelector(({ dictionary }) => {
-    console.log(dictionary.wordList);
     return dictionary.wordList;
   });
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadWordListFB());
-    console.log('호출1');
   }, []);
 
   const loadedWord = wordList.map((word) => {
-    console.log('호출3');
     return <Word key={word.id} wordData={word} id={word.id} />;
   });
-  console.log('호출2');
+
+  const isLoaded = useSelector(({ dictionary }) => dictionary.isLoaded);
+
   return (
     <HomeContainer className='nes-container'>
-      {loadedWord}
-      <Link to='/add' className='nes-btn is-primary'>
-        추가하기
-      </Link>
+      {!isLoaded ? <Spinner /> : loadedWord}
+      {!isLoaded ? null : <Btn />}
     </HomeContainer>
   );
 };

@@ -10,17 +10,14 @@ import NotFound from './components/pages/NotFound';
 import Spinner from './components/pages/Spinner';
 
 function App() {
-  const isLoaded = useSelector(({ dictionary }) => dictionary.isLoaded);
-
   return (
     <>
       <Header />
       <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route exact path='add' element={<InputWord />} />
+        <Route path='/' element={<Home />} />
+        <Route path='add' element={<InputWord />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
-      {!isLoaded && <Spinner />}
     </>
   );
 }
