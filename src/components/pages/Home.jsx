@@ -7,6 +7,7 @@ import { loadWordListFB } from '../store/modules/dictionary';
 import Word from '../UI/Word';
 import Spinner from './Spinner';
 import Btn from '../UI/Btn';
+import NoContent from './NoContent';
 
 const Home = (props) => {
   const wordList = useSelector(({ dictionary }) => {
@@ -26,7 +27,13 @@ const Home = (props) => {
 
   return (
     <HomeContainer className='nes-container'>
-      {!isLoaded ? <Spinner /> : loadedWord}
+      {!isLoaded ? (
+        <Spinner />
+      ) : !loadedWord.length ? (
+        <NoContent />
+      ) : (
+        loadedWord
+      )}
       {!isLoaded ? null : <Btn />}
     </HomeContainer>
   );

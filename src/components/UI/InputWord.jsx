@@ -71,10 +71,8 @@ const InputWord = (props) => {
         />
       </div>
       <div style={{ textAlign: 'right', marginTop: '20px' }}>
-        <button style={{ marginRight: '10px' }} className='nes-btn is-primary'>
-          추가하기
-        </button>
         <button
+          style={{ marginRight: '10px' }}
           onClick={(e) => {
             e.preventDefault();
             navigate(-1);
@@ -83,6 +81,7 @@ const InputWord = (props) => {
         >
           뒤로가기
         </button>
+        <button className='nes-btn is-primary'>추가하기</button>
       </div>
     </InputBox>
   );
