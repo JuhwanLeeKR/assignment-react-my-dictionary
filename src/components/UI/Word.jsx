@@ -61,24 +61,27 @@ const Word = ({ wordData }) => {
                 onChange={(e) => setWord(e.target.value)}
                 maxLength='20'
                 required
+                placeholder='단어를 입력해주세요'
               ></input>
-              <input
+              <textarea
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
                 maxLength='50'
                 required
-              ></input>
-              <input
+                placeholder='설명을 입력해주세요'
+              ></textarea>
+              <textarea
                 value={example}
                 onChange={(e) => setExample(e.target.value)}
                 maxLength='50'
                 required
-              ></input>
+                placeholder='예시를 입력해주세요'
+              ></textarea>
             </>
           ) : (
             <>
               <li>{wordData.word}</li>
-              <li>{wordData.desc}</li>
+              <li style={{ color: '#555' }}>{wordData.desc}</li>
               <li style={{ color: 'lightblue' }}>{wordData.example}</li>
             </>
           )}
@@ -115,6 +118,7 @@ const WordContent = styled.div`
   margin-bottom: 12px !important;
   background-color: ${({ isCompleted }) => (isCompleted ? '#aaa' : null)};
   color: ${({ isCompleted }) => (isCompleted ? '#777' : null)};
+  max-width: 400px;
 
   :hover {
     background: #ddd;
@@ -129,6 +133,10 @@ const WordContent = styled.div`
   & .is-success,
   & .is-success:hover {
     color: ${({ isCompleted }) => (isCompleted ? '#009246' : null)};
+  }
+  & textarea {
+    resize: none;
+    height: 100px;
   }
 `;
 
